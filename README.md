@@ -51,6 +51,39 @@ NAME               CLUSTER-IP       EXTERNAL-IP    PORT(S)    AGE
 my-php7-server     192.20.10.15     192.11.24.21   80/TCP     1h
 ```
 
+# Scale up/down application
+Scale up the deployment
+```
+kubectl get deploy
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+my-php7-server    1         1         1            0           8h
+wordpress-mysql   1         1         1            0           8h
+```
+
+```
+kubectl scale deploy my-php7-server --replicas=3
+deployment.extensions/my-php7-server scaled
+```
+
+```
+kubectl get deploy
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+my-php7-server    3         3         3            0           8h
+wordpress-mysql   1         1         1            0           8h
+````
+Scale down the deployment
+
+```
+kubectl scale deploy my-php7-server --replicas=2
+deployment.extensions/my-php7-server scaled
+```
+
+```
+ kubectl get deploy
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+my-php7-server    2         2         2            0           8h
+wordpress-mysql   1         1         1            0           9h
+```
 
 # Check your browser
 browse 192.11.24.21 can see that connect the database success.
